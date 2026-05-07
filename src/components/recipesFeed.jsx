@@ -1,6 +1,7 @@
+import { Link } from 'react-router'
 import { useGetRecipeFeed } from '../api/recipes.js'
 
-export function RecipeFeed() {
+export default function RecipeFeed() {
 	const { data, error, isLoading } = useGetRecipeFeed()
 
 	if (isLoading) return <p>Loading...</p>
@@ -36,6 +37,7 @@ export function RecipeFeed() {
 	};
 
 	const feed = data.recipes.map(recipe =>
+			<Link to={`recipes/${recipe.id}`}>
 			<li key={recipe.id}>
 				<div class="content-card" style={cardStyle}>
 				{recipe.title}
@@ -47,7 +49,7 @@ export function RecipeFeed() {
 					style={imageStyle}
 				/>
 				</div>
-			</li>
+			</li></Link>
 		);
 
 	return (

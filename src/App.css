@@ -17,7 +17,7 @@
   }
 }
 
-.hero {
+.banner {
   position: relative;
 
   .base,
@@ -63,6 +63,7 @@
   place-content: center;
   place-items: center;
   flex-grow: 1;
+  min-width: 0;
 
   @media (max-width: 1024px) {
     padding: 32px 20px 24px;

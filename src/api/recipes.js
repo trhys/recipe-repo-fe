@@ -10,3 +10,8 @@ export function useGetRecipeFeed() {
 	return { data, error, isLoading }
 }
 
+// Get individual recipe
+export function useGetRecipe(id) {
+	const { data, error, isLoading } = useSWR(`${API_BASE}/api/recipes/${id}`, fetcher)
+	return { data, error, isLoading }
+}
