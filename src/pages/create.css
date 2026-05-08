@@ -1,0 +1,16 @@
+.ingredient-select {
+	height: 350px;
+	width: 400px;
+	overflow-y: auto;
+	border: 1px solid #ccc;
+	padding: 10px;
+	display: flex;
+}
+
+.ingredients, .units {
+	height: auto;
+	width: auto;
+	overflow-y: auto;
+	border: 1px solid #ccc;
+	padding: 10px;
+}

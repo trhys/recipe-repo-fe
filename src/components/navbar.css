@@ -23,13 +23,31 @@
 }
 
 .nav-links a:hover {
-  color: #ffffff;
+  color: #ff4d4d;
 }
 
 .nav-links a.active {
   color: #61dafb; /* React blue */
   border-bottom: 2px solid #61dafb;
   padding-bottom: 4px;
+}
+
+.logoutBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 500;
+  color: #adb5bd;
+  padding: 0 15px;
+  
+  transition: color 0.3s ease;
+}
+
+.logoutBtn:hover {
+  color: #ff4d4d; 
 }
 
 .logo-container {
@@ -46,7 +64,7 @@
 }
 
 .logo-text {
-  margin-left: 10px;
+  margin-left: 15px;
   font-size: 1.2rem;
   font-weight: bold;
 }
