@@ -1,6 +1,6 @@
 .ingredient-select {
 	height: 350px;
-	width: 400px;
+	width: auto;
 	overflow-y: auto;
 	border: 1px solid #ccc;
 	padding: 10px;
@@ -13,4 +13,20 @@
 	overflow-y: auto;
 	border: 1px solid #ccc;
 	padding: 10px;
+}
+
+.ingredient-row {
+	display: flex;
+	align-items: center;
+}
+
+.ingredient-row select, .ingredient-row input, .ingredient-row label {
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
+.ingredient-row button {
+	margin-left: 5px;
+	margin-bottom: 5px;
+
 }

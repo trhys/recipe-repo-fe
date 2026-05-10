@@ -18,8 +18,12 @@ export function RecipeCreator() {
 	)
 
 	function handleSubmit() {}
-	function handleSelect(rowID, id) {
+	function handleSelectIngredient(rowID, id) {
 		setIngredients(ingredients.map(row => row.rowID === rowID ? {...row, id: id } : row));
+	}
+
+	function handleSelectQuantity(rowID, value) {
+		setIngredients(ingredients.map(row => row.rowID === rowID ? {...row, quantity: value } : row));
 	}
 
 	const addRow = (e) => {
@@ -50,34 +54,38 @@ export function RecipeCreator() {
 		  accept=".jpg, .jpeg, .png"
 		/></div>
 		<div className="ingredient-select">
-		<div className="ingredients">
-		<label>Ingredients</label>
-		{ ingredients.map((row) => (
-			<div key={row.rowID} className="ingredient-row">
-				<select
-				  value={row.id}
-			 	  onChange={e => handleSelect(row.rowID, e.target.value)}
-				  disabled={ingredientIsLoading}
-				>
-				  <option value="">{ingredientIsLoading ? 'Loading...' : 'Select an ingredient'}</option>
-				  {
-					  ingredientData?.ingredients.map((opt) => (
-						  <option key={opt.id} value={opt.id}>
-						  	{opt.name}
-						  </option>
-					  ))
-				  }
-				</select>
-				<button type="button" onClick={() => removeRow(row.rowID)}>X</button>
+			<div className="ingredients">
+				<label>Ingredients</label><hr />
+				{ ingredients.map((row) => (
+					<div key={row.rowID} className="ingredient-row">
+						<select
+						value={row.id}
+						onChange={e => handleSelectIngredient(row.rowID, e.target.value)}
+						disabled={ingredientIsLoading}
+						>
+						<option value="">{ingredientIsLoading ? 'Loading...' : 'Select an ingredient'}</option>
+						{
+							ingredientData?.ingredients.map((opt) => (
+								<option key={opt.id} value={opt.id}>
+									{opt.name}
+								</option>
+							))
+						}
+						</select>
+						<label>Quantity:</label>
+						<input
+							type="number"
+							value={row.quantity}
+							placeholder='1'
+							onChange={e => handleSelectQuantity(row.rowID, e.target.value)}
+							required
+						/>
+						<button type="button" onClick={() => removeRow(row.rowID)}>x</button>
+					</div>
+				))}
+
+				<button type="button" onClick={addRow}>Add</button>
 			</div>
-		))}
-
-		<button type="button" onClick={addRow}>Add</button>
-		</div>
-		<div className="units"><label>Units</label>
-		
-
-		</div>
 		</div>
 		</form>
 		</>

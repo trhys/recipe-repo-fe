@@ -5,8 +5,8 @@ import { postLogin, postSignup } from '../api/auth.js'
 
 
 export function Login() {
-	const [email, setEmail] = useState('Email')
-	const [pass, setPass] = useState('Password')
+	const [email, setEmail] = useState('')
+	const [pass, setPass] = useState('')
 	const { login } = useAuth()
 	const navigate = useNavigate()
 
@@ -40,9 +40,9 @@ export function Login() {
 }
 
 export function Signup() {
-	const [email, setEmail] = useState('Email')
-	const [pass, setPass] = useState('Password')
-	const [name, setName] = useState('Name')
+	const [email, setEmail] = useState('')
+	const [pass, setPass] = useState('')
+	const [name, setName] = useState('')
 	const navigate = useNavigate()
 
 	async function handleSubmit(e) {
