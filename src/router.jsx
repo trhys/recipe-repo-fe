@@ -4,6 +4,7 @@ import Home from './pages/home.jsx'
 import Recipe from './pages/recipe.jsx'
 import { RecipeCreator } from './pages/create.jsx'
 import { Login, Signup } from './pages/auth.jsx'
+import ShoppingLists from './pages/shoppingLists.jsx'
 
 const router = createBrowserRouter([
 	{
@@ -15,6 +16,7 @@ const router = createBrowserRouter([
 			{ path: "login", Component: Login },
 			{ path: "signup", Component: Signup },
 			{ path: "recipe-creator", Component: RecipeCreator },
+			{ path: "shopping-lists", Component: ShoppingLists },
 		],
 	},
 ])

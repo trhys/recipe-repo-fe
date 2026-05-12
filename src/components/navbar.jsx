@@ -28,6 +28,7 @@ export default function Navbar() {
 			user ? (
 				<>
 				<NavLink to="recipe-creator" end>Create</NavLink>
+				<NavLink to="shopping-lists" end>Shopping Lists</NavLink>
 
 				<div className="profile-dropdown">
 				<div className="user-profile" onClick={() => setIsOpen(!isOpen)}>
