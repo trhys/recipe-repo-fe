@@ -6,10 +6,10 @@ form {
   max-width: 900px;
   margin: 2rem auto;
   padding: 2rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(251, 146, 60, 0.03);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(251, 146, 60, 0.15);
   border-radius: 16px;
   overflow: hidden;
   color: white;
@@ -18,8 +18,8 @@ form {
 input:focus, select:focus, textarea:focus {
   outline: none;
   background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.5);
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+  border-color: var(--trr-primary)
+  box-shadow: 0 0 15px var(--trr-deep)
   transition: all 0.2s ease-in-out;
 }
 
@@ -60,14 +60,28 @@ textarea {
 
 button[type="submit"] {
   width: 100%;
-  background: rgba(255, 255, 255, 0.9);
-  color: #333;
+  background: var(--trr-primary);
+  color: #1a1a1a;
   border: none;
   padding: 14px;
   font-weight: bold;
   border-radius: 8px;
   cursor: pointer;
   margin-top: 1rem;
+}
+
+button[type="submit"]:hover {
+	background: var(--trr-deep);
+}
+
+.add-btn, .rm-btn {
+  background: var(--trr-primary);
+  color: #1a1a1a;
+  border: none;
+  padding: 14px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 .recipe-title {
@@ -110,7 +124,7 @@ button[type="submit"] {
 }
 
 .image-upload-label:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--trr-deep);
   border-color: rgba(255, 255, 255, 0.5);
 }
 

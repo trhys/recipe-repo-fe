@@ -1,3 +1,9 @@
+:root {
+        --trr-primary: #FB923C;
+        --trr-soft: #FFEDD5;
+        --trr-deep: #EA580C;
+}
+
 .banner {
   position: relative;
 

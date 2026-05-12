@@ -150,12 +150,12 @@ export function RecipeCreator() {
 					onSelect={(unit) => handleSelectUnits(row.rowID, unit)}
 				/>
 
-				<button type="button" onClick={() => removeRow(row.rowID)}>x</button>
+				<button className="rm-btn" type="button" onClick={() => removeRow(row.rowID)}>x</button>
 				</div>
 				
 				))}
 
-				<button type="button" onClick={addRow}>Add</button>
+				<button className="add-btn" type="button" onClick={addRow}>Add</button>
 				<hr />
 			</div>
 		</div>

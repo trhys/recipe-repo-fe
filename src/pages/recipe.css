@@ -1,0 +1,112 @@
+* {
+    box-sizing: border-box;
+}
+
+.recipe-view {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    color: white;
+    font-family: 'Inter', system-ui, sans-serif;
+}
+
+.recipe-hero-image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: block;
+}
+
+.recipe-view h2 {
+    font-size: 2.5rem;
+    margin: 0;
+    letter-spacing: -0.5px;
+}
+
+.recipe-view h3 {
+    font-size: 1.5rem;
+    margin: 2.5rem 0 1rem 0;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.recipe-view hr {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.3), transparent);
+    margin: 1rem 0;
+    width: 100%;
+}
+
+.recipe-meta {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.ingredients-section {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    /*width: 100%;*/
+    text-align: left;
+}
+
+.ingredients-section li {
+    display: grid;
+    grid-template-columns: 1fr auto; 
+    gap: 15px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    align-items: center;
+    /*width: 100%;*/ 
+}
+
+.ing-name {
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.ing-count {
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+    text-align: right; 
+}
+
+.recipe-text-block {
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1.05rem;
+}
+
+.skeleton {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.skeleton::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+

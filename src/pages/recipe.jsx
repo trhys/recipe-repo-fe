@@ -1,48 +1,50 @@
 import { useParams } from 'react-router'
 import { useGetRecipe } from '../api/recipes.js'
+import './recipe.css'
 
 export default function Recipe() {
 	let params = useParams()
 	const { data, error, isLoading } = useGetRecipe(params.id)
 
-	if (isLoading) return <p>Loading...</p>
+	if (isLoading) return (
+		<div className="recipe-view">
+            	<div className="skeleton recipe-hero-image" />
+            	<div className="skeleton" style={{ height: '40px', width: '70%', marginBottom: '20px' }} />
+            	<div className="skeleton" style={{ height: '100px', width: '100%' }} />
+        	</div>
+	)
+
 	if (error) return <p>Something went wrong!</p>
 
-	const view = data.ingredients.map(ing =>
-		<li key={ing.name}>
-		{ing.name} - {ing.quantity} {ing.unit}
-		</li>
-	);
-
-	const imageStyle = {
-                width: '100%',           
-                aspectRatio: '16 / 9', 
-                objectFit: 'cover',      
-                objectPosition: 'center',
-                borderRadius: '8px',  
-                display: 'block',
-        };
-
-	const textStyle = {
-		whiteSpace: 'pre-wrap',
-		overflowWrap: 'break-word',
-	};
-
 	return (
-		<>    
-		<img src={data.image_url} style={imageStyle} />
-		<h2>{data.title}<hr /></h2>
-		<h4>By: {data.author}
-        	<br /> Created: {data.created_at}
-        	<br /> Updated: {data.updated_at}
-		</h4>
+		<div className="recipe-view">
+		    <img src={data.image_url} className="recipe-hero-image" alt={data.title} />
+		    
+		    <h2>{data.title}</h2>
+		    <hr />
+		    
+		    <div className="recipe-meta">
+			<strong>By:</strong> {data.author} <br />
+			<strong>Created:</strong> {data.created_at} <br />
+			<strong>Updated:</strong> {data.updated_at}
+		    </div>
 
-		<div style={textStyle}>{data.description}</div> 
-	      	<ul><h3>Ingredients</h3><hr width="100%"/>{view}</ul>
-	    
-		
-		<h2>Instructions</h2><hr width="90%"/>
-    		<div style={textStyle}>{data.instructions}</div>
-		</>
+		    <div className="recipe-text-block">{data.description}</div>
+
+		    <h3>Ingredients</h3>
+		    <hr />
+		    <ul className="ingredients-section">
+			{data.ingredients.map(ing => (
+			    <li key={ing.name}>
+				<span className="ing-name">{ing.name}</span>
+				<span className="ing-count">{ing.quantity} {ing.unit}</span>
+			    </li>
+			))}
+		    </ul>
+
+		    <h3>Instructions</h3>
+		    <hr />
+		    <div className="recipe-text-block">{data.instructions}</div>
+		</div>
 	);
 }

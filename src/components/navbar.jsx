@@ -1,4 +1,5 @@
 import { Link, NavLink, useNavigate } from 'react-router'
+import { useState } from 'react'
 import { useAuth } from './auth.jsx'
 import logo from '../assets/logo.png'
 import './navbar.css'
@@ -6,6 +7,8 @@ import './navbar.css'
 export default function Navbar() {
 	const { user, logout } = useAuth(); 
 	const navigate = useNavigate();
+
+	const [isOpen, setIsOpen] = useState(false)
 
 	const handleLogout = () => {
 		logout()
@@ -18,13 +21,32 @@ export default function Navbar() {
 			<img src={logo} className="logo-img" />
 			<span className="logo-text">The Recipe Repo</span>
 		</Link>
+
 		<div className="nav-links">
 			<NavLink to="/" end>Home</NavLink>
 		{
 			user ? (
 				<>
 				<NavLink to="recipe-creator" end>Create</NavLink>
-				<button onClick={handleLogout} className="logoutBtn">Logout</button>
+
+				<div className="profile-dropdown">
+				<div className="user-profile" onClick={() => setIsOpen(!isOpen)}>
+					<span className="user-name">{user.name}</span>
+					<div className="user-avatar">
+				    		{user.name.charAt(0)}
+					</div>
+			    	</div>
+				{isOpen && (
+					<div className="dropdown-menu">
+					    <Link to="/profile" onClick={() => setIsOpen(false)}>Profile</Link>
+					    <Link to="/settings" onClick={() => setIsOpen(false)}>Settings</Link>
+					    <hr />
+					    <button onClick={handleLogout} className="dropdown-logout">
+						Logout
+					    </button>
+					</div>
+                            	)}
+                        	</div>
 				</>
 			) : (
 				<>
