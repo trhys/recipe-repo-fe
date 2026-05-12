@@ -7,10 +7,10 @@ export function RecipeCreator() {
 	const { user, logout } = useAuth();
 	const [title, setTitle] = useState('')
 	const [image, setImage] = useState(null)
-	const [ingredients, setIngredients] = useState([{ rowID: Date.now(), id: '' }])
+	const [ingredients, setIngredients] = useState([{ rowID: Date.now(), id: '', quantity: 0, units: '' }])
 	const [description, setDescription] = useState('')
 	const [instructions, setInstructions] = useState('')
-
+    const [availableUnits, setAvailableUnits] = useState([{ row: '', units: [] }])
 	const { data: ingredientData, error: ingredientError, isLoading: ingredientIsLoading } = useGetIngredients()
 
 	if (ingredientError) return (
@@ -19,12 +19,18 @@ export function RecipeCreator() {
 
 	function handleSubmit() {}
 	function handleSelectIngredient(rowID, id) {
+        let units = postGetUnits(id)
 		setIngredients(ingredients.map(row => row.rowID === rowID ? {...row, id: id } : row));
+        //setAvailableUnits(availableUnits.map(row => { row: id, units: units })
 	}
 
 	function handleSelectQuantity(rowID, value) {
 		setIngredients(ingredients.map(row => row.rowID === rowID ? {...row, quantity: value } : row));
 	}
+
+    function handleSelectUnits(rowID, unit) {
+        setIngredients(ingredients.map(row => row.rowID === rowID ? {...row, units: unit } : row));
+    }
 
 	const addRow = (e) => {
 		e.preventDefault()
@@ -80,6 +86,14 @@ export function RecipeCreator() {
 							onChange={e => handleSelectQuantity(row.rowID, e.target.value)}
 							required
 						/>
+                        <label>Units:</label>
+                        <select
+                        value={row.units}
+                        onChange={e => handleSelectUnits(row.rowID, e.target.value)}
+                        >
+                        <option value="">{row.id == "" ? '...' : 'Select units'}</option>
+                        {}
+                          </select>
 						<button type="button" onClick={() => removeRow(row.rowID)}>x</button>
 					</div>
 				))}
