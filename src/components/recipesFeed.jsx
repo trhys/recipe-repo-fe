@@ -1,6 +1,7 @@
 import { Link } from 'react-router'
 import { useGetRecipeFeed } from '../api/recipes.js'
 import './recipesFeed.css'
+import formatDate from '../utility/format.js'
 
 export default function RecipeFeed() {
 	const { data, error, isLoading } = useGetRecipeFeed()
@@ -24,7 +25,7 @@ export default function RecipeFeed() {
 			<li key={recipe.id}>
 				<div class="content-card">
 				<h3>{recipe.title}</h3>
-				<p>By: {recipe.author} • {recipe.created_at}</p>
+				<p>By: {recipe.author} • {formatDate(recipe.created_at)}</p>
 				<img
 					src={recipe.image_url}
 					alt={recipe.title}

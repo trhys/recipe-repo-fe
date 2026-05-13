@@ -121,3 +121,226 @@
     to { transform: translateY(0); opacity: 1; }
 }
 
+.list-actions-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.delete-list-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 8px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s, transform 0.1s;
+    opacity: 0.5; 
+}
+
+.list-card:hover .delete-list-btn {
+    opacity: 0.8;
+}
+
+.delete-list-btn:hover {
+    background-color: rgba(239, 68, 68, 0.2); /* Subtle dark-red glass highlight */
+    opacity: 1 !important;
+    transform: scale(1.05);
+}
+
+.delete-list-btn:active {
+    transform: scale(0.95);
+}
+
+.danger-btn {
+    flex: 2;
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.danger-btn:hover {
+    background: #dc2626; 
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.danger-btn:active {
+    transform: scale(0.98);
+}
+
+.cancel-btn-secondary {
+    flex: 2;
+    background: var(--trr-primary);
+    color: #1a1a1a;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.cancel-btn-secondary:hover {
+        background: var(--trr-deep);
+}
+
+
+/* Single list page styles */
+
+.single-list-container {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 2.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    color: white;
+}
+
+.list-navigation {
+    margin-bottom: 2rem;
+}
+
+.back-link {
+    color: var(--trr-primary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.list-navigation h1 {
+    font-size: 2.5rem;
+    margin: 0.5rem 0 0 0;
+}
+
+.list-layout-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
+}
+
+.checklist-section hr, 
+.linked-recipes-section hr {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.2), transparent);
+    margin: 1rem 0;
+}
+
+.checklist-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.checklist-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 10px;
+    margin-bottom: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.2s ease;
+}
+
+.checkbox-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.checkbox-wrapper input[type="checkbox"] {
+    display: none;
+}
+
+.custom-checkbox {
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 6px;
+    display: inline-block;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.checkbox-wrapper input:checked + .custom-checkbox {
+    background: var(--trr-primary);
+    border-color: var(--trr-primary);
+}
+
+.checkbox-wrapper input:checked + .custom-checkbox::after {
+    content: "✓";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #1a1a1a;
+    font-size: 0.8rem;
+    font-weight: 900;
+}
+
+.item-completed {
+    opacity: 0.4;
+}
+
+.item-completed .item-name {
+    text-decoration: line-through;
+}
+
+.item-amount {
+    font-family: monospace;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.7);
+    white-space: nowrap;
+}
+
+.recipe-links-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.mini-recipe-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 14px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    text-decoration: none;
+    color: inherit;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.mini-recipe-card:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--trr-primary);
+}
+
+.mini-arrow {
+    color: var(--trr-primary);
+}
+
+@media (max-width: 800px) {
+    .list-layout-grid {
+        grid-template-columns: 1fr;
+    }
+}
+

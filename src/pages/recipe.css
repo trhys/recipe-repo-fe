@@ -25,10 +25,74 @@
     display: block;
 }
 
+.open-add-modal-btn {
+    background: transparent;
+    color: var(--trr-primary);
+    border: 1px solid var(--trr-primary);
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s ease-in-out;
+}
+
+.open-add-modal-btn:hover {
+    background: var(--trr-primary);
+    color: #1a1a1a;
+    box-shadow: 0 4px 12px var(--trr-soft);
+}
+
+.modal-add-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    text-align: left;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.modal-add-form select,
+.modal-add-form input[type="number"] {
+    width: 100%;
+    height: 42px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    color: white;
+    padding: 0 12px;
+    font-size: 1rem;
+}
+
+.modal-add-form select option {
+    background-color: #242424;
+    color: white;
+}
+
+.modal-add-form input[type="number"]:focus,
+.modal-add-form select:focus {
+    outline: none;
+    border-color: var(--trr-primary);
+    box-shadow: 0 0 12px var(--trr-soft);
+}
+
 .recipe-view h2 {
     font-size: 2.5rem;
     margin: 0;
     letter-spacing: -0.5px;
+    text-align: center; 
+    width: 100%;
 }
 
 .recipe-view h3 {
@@ -45,6 +109,69 @@
     width: 100%;
 }
 
+.add-to-list-form {
+    display: flex;
+    align-items: center;
+    gap: 8px; 
+    margin: 0;
+}
+
+.add-to-list-form select,
+.add-to-list-form input[type="number"],
+.inline-add-btn {
+    height: 38px; 
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+
+.add-to-list-form select {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    color: white;
+    padding: 0 14px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    min-width: 200px;
+}
+
+.add-to-list-form select option {
+    background: #1a1a1a;
+    color: white;
+}
+
+.add-to-list-form input[type="number"] {
+    width: 60px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    color: white;
+    font-size: 0.9rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.inline-add-btn {
+    background: var(--trr-primary);
+    color: #1a1a1a;
+    border: none;
+    padding: 0 16px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: opacity 0.2s, background-color 0.2s;
+}
+
+.inline-add-btn:disabled {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.3);
+    cursor: not-allowed;
+}
+
 .recipe-meta {
     color: rgba(255, 255, 255, 0.6);
     font-size: 0.9rem;
@@ -52,11 +179,18 @@
     margin-bottom: 2rem;
 }
 
+.recipe-text-block {
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1.05rem;
+}
+
 .ingredients-section {
     list-style: none;
     padding: 0;
     margin: 0;
-    /*width: 100%;*/
     text-align: left;
 }
 
@@ -67,7 +201,6 @@
     padding: 12px 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     align-items: center;
-    /*width: 100%;*/ 
 }
 
 .ing-name {
@@ -80,14 +213,6 @@
     font-weight: 600;
     color: rgba(255, 255, 255, 0.8);
     text-align: right; 
-}
-
-.recipe-text-block {
-    white-space: pre-wrap;
-    overflow-wrap: break-word;
-    line-height: 1.8;
-    color: rgba(255, 255, 255, 0.85);
-    font-size: 1.05rem;
 }
 
 .skeleton {
@@ -108,5 +233,71 @@
 @keyframes shimmer {
     0% { transform: translateX(-100%); }
     100% { transform: translateX(100%); }
+}
+
+@media (max-width: 650px) {
+    .recipe-header-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    .add-to-list-form {
+        width: 100%;
+    }
+    .add-to-list-form select {
+        flex: 1;
+    }
+}
+
+.modal-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 1.5rem;
+    width: 100%;
+}
+
+.modal-actions .cancel-btn-secondary,
+.modal-actions .submit-btn {
+    flex: 1; 
+    height: 42px; 
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0; 
+    padding: 0 16px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.modal-actions .cancel-btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.modal-actions .cancel-btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.modal-actions .submit-btn {
+    background: var(--trr-primary);
+    color: #1a1a1a;
+    border: none;
+}
+
+.modal-actions .submit-btn:hover:not(:disabled) {
+    background: var(--trr-deep);
+    box-shadow: 0 4px 12px var(--trr-soft);
+}
+
+.modal-actions .submit-btn:disabled {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.3);
+    cursor: not-allowed;
 }
 
