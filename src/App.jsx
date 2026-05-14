@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { Outlet } from 'react-router'
-import './App.css'
-import Navbar from './components/navbar.jsx'
 import { useAuth } from './components/auth.jsx'
+import Navbar from './components/navbar.jsx'
+import Footer from './components/footer.jsx'
+import './App.css'
 
 function App() {
 	const { user, logout } = useAuth();
@@ -15,8 +16,12 @@ function App() {
 	<Outlet />
 	</section>
 
-      <section id="next-steps"></section>
-      <section id="spacer"></section>
+      <section id="next-steps">
+
+	  </section>
+      <section id="spacer">
+		<Footer />
+	  </section>
     </>
   )
 }

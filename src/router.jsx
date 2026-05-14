@@ -5,6 +5,7 @@ import Recipe from './pages/recipe.jsx'
 import { RecipeCreator } from './pages/create.jsx'
 import { Login, Signup } from './pages/auth.jsx'
 import { ShoppingListsPage, ShoppingList } from './pages/shoppingLists.jsx'
+import { UserProfile } from './pages/user.jsx'
 
 const router = createBrowserRouter([
 	{
@@ -17,7 +18,8 @@ const router = createBrowserRouter([
 			{ path: "signup", Component: Signup },
 			{ path: "recipe-creator", Component: RecipeCreator },
 			{ path: "shopping-lists", Component: ShoppingListsPage },
-			{ path: "shopping-lists/:id", Component: ShoppingList }
+			{ path: "shopping-lists/:id", Component: ShoppingList },
+			{ path: "profile", Component: UserProfile }
 		],
 	},
 ])

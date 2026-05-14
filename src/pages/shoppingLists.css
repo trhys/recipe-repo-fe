@@ -33,7 +33,7 @@
     background: var(--trr-deep);
 }
 
-.cancel-btn {
+.submit-btn {
   width: 100%;
   background: var(--trr-primary);
   color: #1a1a1a;
@@ -45,7 +45,7 @@
   margin-top: 1rem;
 }
 
-.cancel-btn:hover {
+.submit-btn:hover {
         background: var(--trr-deep);
 }
 

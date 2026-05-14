@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = (data) => {
     setUser(data);
-    const session = JSON.stringify({ email: data.email, name: data.name, id: data.id })
+    const session = JSON.stringify({ email: data.email, name: data.name, id: data.id, image_url: data.image_url })
     localStorage.setItem('user_session', session);
   };
 

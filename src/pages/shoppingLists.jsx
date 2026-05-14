@@ -56,7 +56,7 @@ export function ShoppingListsPage() {
 		<div className="shopping-lists-container">
 		    <header className="page-header">
 			<h2>Your Shopping Lists</h2>
-			<button className="add-list-btn" onClick={() => setShowModal(true)}>
+			<button className="add-list-btn" onClick={() => setCreateModal(true)}>
 			    + New List
 			</button>
 		    </header>
@@ -99,7 +99,7 @@ export function ShoppingListsPage() {
 					required 
 				    />
 				    <div className="modal-actions">
-					<button type="button" className="cancel-btn" onClick={() => setCreateModal(false)}>
+					<button type="button" className="cancel-btn-secondary" onClick={() => setCreateModal(false)}>
 					    Cancel
 					</button>
 					<button type="submit" className="submit-btn">

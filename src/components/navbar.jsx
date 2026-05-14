@@ -34,7 +34,7 @@ export default function Navbar() {
 				<div className="user-profile" onClick={() => setIsOpen(!isOpen)}>
 					<span className="user-name">{user.name}</span>
 					<div className="user-avatar">
-				    		{user.name.charAt(0)}
+				    		{user.image_url ? <img src={user.image_url}/> : user.name.charAt(0)}
 					</div>
 			    	</div>
 				{isOpen && (
