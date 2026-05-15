@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useAuth } from '../components/auth.jsx' 
 import { useGetUserProfile, updateSetUserAvatar } from '../api/users.js'  
 import { useGetShoppingLists } from '../api/shoppingLists.js'
+import { deleteRecipe } from '../api/recipes.js'
 import { Link } from 'react-router'
 import './user.css'
 
@@ -12,6 +13,7 @@ export function UserProfile() {
     const [image, setImage] = useState(null)
     const [preview, setPreview] = useState(null)
     const [isSaving, setIsSaving] = useState(false)
+    const [deleteTarget, setDeleteTarget] = useState(null)
 
     if (!user) return <p className="status-text">Please log in to view your profile.</p>
 
@@ -40,7 +42,26 @@ export function UserProfile() {
 		}
 	}
 
+	const triggerDelete = (e, id) => {
+		e.preventDefault()
+		setDeleteTarget(id)
+	}
+
+	const handleDelete = async () => {
+		if (!deleteTarget) return
+
+		let { ok, message } = await deleteRecipe(deleteTarget)
+
+		if (ok) {
+			setDeleteTarget(null)
+			mutate()
+		} else {
+			alert(`Failed! ${message}`)
+		}
+	}
+
     return (
+	    <>
         <div className="profile-container">
             <header className="profile-header">
 	    <label className="profile-avatar-upload-label" title="Click to change avatar">
@@ -106,7 +127,28 @@ export function UserProfile() {
                                         <div className="profile-recipe-details">
                                             <h4>{recipe.title}</h4>
                                         </div>
-                                        <span className="arrow-indicator">→</span>
+					<div className="list-actions-wrapper">
+						<div className="recipe-list-btns">
+						<Link to={`/recipes/${recipe.id}/edit`} className="edit-recipe-link">
+						<button 
+						    type="button" 
+						    className="edit-recipe-btn"
+						    title="Edit Recipe"
+						>
+						    ✎	
+						</button>
+						</Link>
+						<button 
+						    type="button" 
+						    className="delete-recipe-btn"
+						    onClick={(e) => triggerDelete(e, recipe.id)}
+						    title="Delete Recipe"
+						>
+						    🗑️
+						</button>
+						</div>
+						<div className="list-arrow">→</div>
+				    </div>
                                     </Link>
                                 ))
                             )}
@@ -133,7 +175,35 @@ export function UserProfile() {
                     )}
                 </section>
             </div>
-        </div>
+	</div>
+	    {deleteTarget && (
+                    <div className="modal-overlay" onClick={() => setDeleteTarget(null)}>
+                        <div className="modal-content auth-card" onClick={e => e.stopPropagation()}> 
+                            <h3>Delete this recipe?</h3>
+                            <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.95rem', margin: '0.5rem 0 1.5rem 0' }}>
+                                This action cannot be undone.
+                            </p>
+                            
+                            <div className="modal-actions">
+                                <button 
+                                    type="button" 
+                                    className="cancel-btn-secondary" 
+                                    onClick={() => setDeleteTarget(null)}
+                                >
+                                    Cancel
+                                </button>
+                                <button 
+                                    type="button" 
+                                    className="danger-btn" 
+                                    onClick={handleDelete}
+                                >
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
+        </>
     );
 }
 

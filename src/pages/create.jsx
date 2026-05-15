@@ -1,7 +1,7 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router'
+import { useState, useEffect } from 'react'
+import { useNavigate, useParams } from 'react-router'
 import { useAuth } from '../components/auth.jsx'
-import { useGetIngredients, useGetUnits, postRecipe } from '../api/recipes.js'
+import { useGetIngredients, useGetUnits, postRecipe, putRecipe, useGetRecipe } from '../api/recipes.js'
 import './create.css'
 
 function UnitSelect({ ingredientId, selectedUnit, onSelect }) {
@@ -29,6 +29,12 @@ export function RecipeCreator() {
 	const { user, logout } = useAuth();
 	const navigate = useNavigate();
 
+	/* To enable an editor mode without writing a different component, I'm checking for a recipe id in the path.
+	 * If there is no recipe id, editor state will be false and the useGetRecipe hook will return null */
+
+	const params = useParams();
+	const editor = Boolean(params.id);
+
 	/* STATE */
 	const [title, setTitle] = useState('')
 	const [image, setImage] = useState(null)
@@ -39,16 +45,58 @@ export function RecipeCreator() {
     	
 	/* Get all ingredients from backend to populate select options */
 	const { data: ingredientData, error: ingredientError, isLoading: ingredientIsLoading } = useGetIngredients()
+	
+	/* Get existing recipe data if in editor mode */
+	const { data: editorData, error: editorError, isLoading: editorLoading } = useGetRecipe(params.id)
 
-	if (ingredientError) return (
-		<p>Something went wrong</p>
-	)
+	/* Here we'll useEffect to set all the state if we are editing */
+	useEffect(() => {
+		if (editor && editorData) {
+			setTitle(editorData.title)
+			setDescription(editorData.description)
+			setInstructions(editorData.instructions)
+			setPreview(editorData.image_url)
+
+			if (editorData.ingredients) {
+				const loadedRows = editorData.ingredients.map((ing, index) => ({
+					rowID: Date.now() + index, 
+					id: ing.id,
+					quantity: ing.quantity,
+					units: ing.unit
+				}))
+                        	setIngredients(loadedRows)
+			}
+		} else if (!editor) {
+			setTitle('');
+			setDescription('');
+			setInstructions('');
+			setImage(null);
+			setPreview(null);
+			setIngredients([{ rowID: Date.now(), id: '', quantity: 1, units: '' }]);
+		}
+	}, [editor, editorData])
+
+	if (editorLoading || ingredientIsLoading) return <p>Loading</p>
+
+	if (ingredientError || editorError) {
+		console.log(`ERROR - useGetIngredients error: ${ingredientError} --- useGetRecipe error: ${editorError}`)
+		return (
+			<p>Something went wrong</p>
+		)
+	}
 
 	async function handleSubmit(e) {
 		e.preventDefault()
-		let { id, ok, message } = await postRecipe(title, image, ingredients, description, instructions)
+
+		let result = !editor 
+			? await postRecipe(title, image, ingredients, description, instructions)
+			: await putRecipe(params.id, title, image, ingredients, description, instructions)
+
+		let { id, ok, message } = result
+
 		if (ok) {
-			navigate(`/recipes/${id}`)
+			if (editor) navigate(`/recipes/${params.id}`)
+			else navigate(`/recipes/${id}`)
 		} else alert(`Failed! ${message}`)
 	}
 
@@ -174,9 +222,9 @@ export function RecipeCreator() {
 		    onChange={e => setInstructions(e.target.value)} 
 		/><br/>
 
-		<button type="submit">Create Recipe</button>
+		<button type="submit">{editor ? 'Update Recipe' : 'Create Recipe'}</button>
 
 		</form>
 		</>
-	)
+	);
 }

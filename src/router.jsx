@@ -19,7 +19,8 @@ const router = createBrowserRouter([
 			{ path: "recipe-creator", Component: RecipeCreator },
 			{ path: "shopping-lists", Component: ShoppingListsPage },
 			{ path: "shopping-lists/:id", Component: ShoppingList },
-			{ path: "profile", Component: UserProfile }
+			{ path: "profile", Component: UserProfile },
+			{ path: "recipes/:id/edit", Component: RecipeCreator }
 		],
 	},
 ])

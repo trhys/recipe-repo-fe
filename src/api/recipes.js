@@ -19,7 +19,7 @@ export function useGetUserProfile(id) {
 
 // Get individual recipe
 export function useGetRecipe(id) {
-	const { data, error, isLoading } = useSWR(`${API_BASE}/api/recipes/${id}`, fetcher)
+	const { data, error, isLoading } = useSWR(id ? `${API_BASE}/api/recipes/${id}` : null, fetcher)
 	return { data, error, isLoading }
 }
 
@@ -66,3 +66,51 @@ export async function postRecipe(title, image, ingredients, description, instruc
 		return { id: null, ok: false, message: error }
 	}
 }	
+
+// Update recipe
+export async function putRecipe(id, title, image, ingredients, description, instructions) {
+	try {
+		const ingData = ingredients.map((i) => ({
+			id: i.id,
+			quantity: parseFloat(i.quantity) || 0,
+			unit: i.units,
+		}));
+
+		const body = JSON.stringify({ title: title, ingredients: ingData, description: description, instructions: instructions })
+
+		const formData = new FormData()
+		formData.append("payload", body)
+
+		if (image && typeof image !== 'string') formData.append("image", image)
+
+		let response = await fetch(`${API_BASE}/api/recipes/${id}`, {
+			method: "PUT",
+			credentials: 'include',
+			body: formData,
+		})
+
+		if (response.ok) {
+			return { id: null, ok: true, message: null }
+		}
+	} catch (error) {
+		console.error("PUT REQUEST ERROR:", error)
+		return { id: null, ok: false, message: error.message }
+	}
+}
+
+// Delete recipe
+export async function deleteRecipe(id) {
+	try {
+		let response = await fetch(`${API_BASE}/api/recipes/${id}`, {
+			method: "DELETE",
+			credentials: "include",
+		})
+
+		if (response.ok) {
+			return { ok: true, message: null }
+		}
+	} catch (error) {
+		console.error("DELETE REQUEST ERROR:", error)
+		return { ok: false, message: error.message }
+	}
+}
